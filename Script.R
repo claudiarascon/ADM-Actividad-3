@@ -189,7 +189,7 @@ modelo_arbol <- rpart(BikePurchase ~ TotalAmount + Country + Group + Age + Marit
 
 rpart.plot(modelo_arbol)
 ########################################################################################################
-# 3. EVALUACIÓN Y COMPARACIÓN DE MODELOS
+# 4. EVALUACIÓN Y COMPARACIÓN DE MODELOS
 # Generación de Predicciones ----
 
 # Predicción con Regresión Logística (Probabilidades y Clases)
@@ -278,22 +278,6 @@ legend("bottomright", legend = c(paste("Logit (AUC =", round(auc(roc_logit), 3),
 
 
 ########################################################################################################
-
-# 4. Comparación de la precisión de los modelos y ranking de importancia de variables ----
-
-# 4.1 ¿Cómo de buenos son los modelos? ----
-prob_pred <- predict(modelo_rlog, newdata = test, type = "response")
-clase_pred <- ifelse(prob_pred > 0.5, "Yes", "No")
-
-pred_clase_factor <- factor(clase_pred, levels = c("No", "Yes")) 
-real_factor <- factor(test$BikePurchase, levels = c("No", "Yes"))
-
-print("Matriz de Confusión - Regresión Logística:")
-confusionMatrix(pred_clase_factor, real_factor)
-# 4.2 Ranking según la importancia de las variables ----
-print("Importancia de las variables (Árbol):")
-print(modelo_arbol$variable.importance)
-
 
 # 5. Técnicas de aprendizaje no supervisado ----
 
