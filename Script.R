@@ -100,7 +100,18 @@ datos <- datos |>
   filter(!if_any(everything(), ~ . == "NULL")) |>
   mutate(Weight = as.numeric(Weight),
          across(c(Name, Color, Size), as.factor))  
+#######################################################################
+# Base de datos sin etiquetar
+glimpse(datos)
 
+names(datos) <- make.unique(names(datos))
+
+datos <- datos |>
+  filter(!if_any(everything(), ~ . == "NULL")) |>
+  mutate(Weight = as.numeric(Weight),
+         across(c(Name, Color, Size), as.factor))
+
+######################################################################
 
 # 2. Análisis descriptivo ----
 
