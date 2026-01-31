@@ -188,8 +188,9 @@ modelo_arbol <- rpart(BikePurchase ~ TotalAmount + Country + Group + Age + Marit
                       data = train, method ="class")
 
 rpart.plot(modelo_arbol)
-########################################################################################################
-# 4. EVALUACIÓN Y COMPARACIÓN DE MODELOS
+
+
+# Evaluación y comparación de modelos ----
 # Generación de Predicciones ----
 
 # Predicción con Regresión Logística (Probabilidades y Clases)
@@ -276,8 +277,6 @@ legend("bottomright", legend = c(paste("Logit (AUC =", round(auc(roc_logit), 3),
                                  paste("Árbol (AUC =", round(auc(roc_arbol), 3), ")")),
        col = c("blue", "red"), lwd = 2)
 
-
-########################################################################################################
 
 # 5. Técnicas de aprendizaje no supervisado ----
 
