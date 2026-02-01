@@ -22,14 +22,6 @@ ventas <- read.xlsx("DataSet SQL_Act3_ADMN.xlsx",
 bicicleta <- read.xlsx("DataSet SQL_Act3_ADMN.xlsx",
                     sheet = 3) # información sobre clientes
 
-# Var Continuas Gasto Clientes
-clientes <- read.xlsx("DataSet SQL_Act3_ADMN.xlsx",
-                    sheet = 4)
-
-# Datos sin etiquetar
-datos <- read.xlsx("DataSet SQL_Act3_ADMN.xlsx",
-                    sheet = 5)
-
 ## 1.3 Limpieza de datos ----
 
 # Base de datos de ventas
@@ -68,50 +60,6 @@ bicicleta <- bicicleta |>
            HomeOwnerFlag = factor(HomeOwnerFlag, levels = c(0, 1), labels = c("No", "Yes")))
 
 summary(bicicleta)
-
-# Base de datos de clientes
-
-glimpse(clientes)
-summary(clientes)
-
-sum(clientes == "NULL")
-
-clientes <- clientes |>
-  mutate(DateFirstPurchase = as.Date(DateFirstPurchase, origin = "1899-12-30"),
-         BirthDate         = as.Date(BirthDate, origin = "1899-12-30"),
-         across(c(Country, CountryRegionCode, Group, PersonType,
-                  MaritalStatus, YearlyIncome, Gender,
-                  Education, Occupation), ~ as.factor(.)),
-        HomeOwnerFlag = factor(HomeOwnerFlag, levels = c(0,1), labels = c("No","Yes")))
-
-glimpse(clientes)
-summary(clientes)
-
-# Base de datos sin etiquetar
-
-glimpse(datos)
-summary(datos)
-
-sum(datos == "NULL")
-
-which(duplicated(names(datos)))
-
-datos <- datos |>
-  filter(!if_any(everything(), ~ . == "NULL")) |>
-  mutate(Weight = as.numeric(Weight),
-         across(c(Name, Color, Size), as.factor))  
-#######################################################################
-# Base de datos sin etiquetar
-glimpse(datos)
-
-names(datos) <- make.unique(names(datos))
-
-datos <- datos |>
-  filter(!if_any(everything(), ~ . == "NULL")) |>
-  mutate(Weight = as.numeric(Weight),
-         across(c(Name, Color, Size), as.factor))
-
-######################################################################
 
 # 2. Análisis descriptivo ----
 
